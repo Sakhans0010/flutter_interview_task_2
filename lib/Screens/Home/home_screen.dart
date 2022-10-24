@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../Config/size_config.dart';
 import '../../Constants/colors.dart';
+import '../../Controllers/home_controller.dart';
 import '../../Providers/home_data_provider.dart';
 import '../../Widgets/spacers.dart';
 import 'components/home_body.dart';
@@ -21,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final home = Get.put(HomeController());
+
   Position? _position;
 
   bool _isLoading = false;
@@ -36,12 +40,13 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       await getUserCurrentLocation();
 
-      var response = await Provider.of<HomeDataProvider>(context, listen: false)
-          .fetchAndSetData(
-        context: context,
-        // latitude: _position!.latitude,
-        // longitude: _position!.longitude,
-      );
+      var response = await
+          // Provider.of<HomeDataProvider>(context, listen: false)
+          home.fetchAndSetData(
+              // context: context,
+              // latitude: _position!.latitude,
+              // longitude: _position!.longitude,
+              );
     } catch (e) {
       throw Exception(e);
     }
@@ -61,9 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
     var position = await Geolocator.getCurrentPosition(
         // desiredAccuracy: LocationAccuracy.high,
         );
-
-    Provider.of<HomeDataProvider>(context, listen: false)
-        .setUserPosition(position);
+    home.setUserPosition(position);
+    // Provider.of<HomeDataProvider>(context, listen: false)
+    //     .setUserPosition(position);
 
     _position = position;
   }
@@ -80,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return _errorWidget();
           }
 
-          return const HomeBody();
+          return HomeBody();
         });
   }
 

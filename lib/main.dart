@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'Config/app_config.dart';
@@ -7,7 +8,11 @@ import 'Screens/main_screen.dart';
 import 'Themes/app_default_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const GetMaterialApp(
+      home: MainScreen(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

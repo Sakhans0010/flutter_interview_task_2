@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_interview_task_2/Controllers/home_controller.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Config/size_config.dart';
@@ -9,11 +11,14 @@ import '../../../Providers/home_data_provider.dart';
 import '../../../Widgets/spacers.dart';
 
 class HomeBody extends StatelessWidget {
-  const HomeBody({Key? key}) : super(key: key);
+  HomeBody({Key? key}) : super(key: key);
+  final home = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    var homeDataProvider = Provider.of<HomeDataProvider>(context);
+    // var homeDataProvider = Provider.of<HomeDataProvider>(context);
+    // final HomeController homeController = Get.put(HomeController());
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 10,
@@ -30,7 +35,7 @@ class HomeBody extends StatelessWidget {
           ),
           verticalSpacer(5),
           Text(
-            '${homeDataProvider.homeDataResponseModel!.city}, ${homeDataProvider.homeDataResponseModel!.state}, ${homeDataProvider.homeDataResponseModel!.country}',
+            '${home.homeDataResponseModel!.city}, ${home.homeDataResponseModel!.state}, ${home.homeDataResponseModel!.country}',
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   color: Colors.grey,
                 ),
@@ -41,8 +46,7 @@ class HomeBody extends StatelessWidget {
           ),
           Center(
             child: _circleWidget(
-              value: homeDataProvider
-                  .homeDataResponseModel!.current!.pollution!.aqius,
+              value: home.homeDataResponseModel!.current!.pollution!.aqius,
             ),
           ),
           verticalSpacer(30),
@@ -51,7 +55,8 @@ class HomeBody extends StatelessWidget {
             context: context,
             iconContainerColor: AppColors.kSecondaryColor,
             icon: Icons.air,
-            text: 'Air Quality is ${homeDataProvider.airQuality}',
+            text: '',
+            //  'Air Quality is ${home.airQuality.value}',
             isAirQualityContainer: true,
           ),
           _customContainer(
@@ -165,16 +170,26 @@ class HomeBody extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                text!,
-                style: Theme.of(context!).textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
+              isAirQualityContainer
+                  ? Obx(
+                      () => Text(
+                        'Air Quality is ${home.airQuality}',
+                        style:
+                            Theme.of(context!).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                      ),
+                    )
+                  : Text(
+                      text!,
+                      style: Theme.of(context!).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
-              ),
               if (!isAirQualityContainer)
                 Text(
                   subtitleText!,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  style: Theme.of(context!).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey,
                       ),

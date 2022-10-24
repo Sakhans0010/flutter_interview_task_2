@@ -59,8 +59,8 @@ class HttpClient {
           .timeout(const Duration(seconds: TIME_OUT_DURATION));
       print(response.body);
 
-      return jsonDecode(response.body);
-      // return _processResponse(response);
+      // return jsonDecode(response.body);
+      return _processResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection', uri.toString());
     } on TimeoutException {
