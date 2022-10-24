@@ -15,20 +15,17 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: ProvidersList.getProviders(),
-      child: MaterialApp(
-        title: AppConfig.app_name,
-        theme: appDefaultTheme(),
-        debugShowCheckedModeBanner: false,
-        home: MainScreen(),
-      ),
-    );
-  }
-}
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: AppConfig.app_name,
+//       theme: appDefaultTheme(),
+//       debugShowCheckedModeBanner: false,
+//       home: MainScreen(),
+//     );
+//   }
+// }

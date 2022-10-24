@@ -2,19 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
 import '../Constants/colors.dart';
+import '../Controllers/main_controller.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  CustomBottomNavigationBar({
-    this.selectedIndex,
-    this.onBottomIconPressed,
+  const CustomBottomNavigationBar({
     Key? key,
   }) : super(key: key);
-
-  int? selectedIndex;
-
-  Function? onBottomIconPressed;
 
   @override
   State<CustomBottomNavigationBar> createState() =>
@@ -24,14 +20,18 @@ class CustomBottomNavigationBar extends StatefulWidget {
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
+    final MainController mainController = Get.put(
+      MainController(),
+      permanent: false,
+    );
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 20,
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.grey,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
         ),
@@ -40,19 +40,19 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            onPressed: () => widget.onBottomIconPressed!(0),
+            onPressed: () => mainController.changeTabIndex(0),
             icon: Icon(
               Icons.location_on,
-              color: widget.selectedIndex! == 0
+              color: mainController.tabIndex.value == 0
                   ? AppColors.kSecondaryColor
                   : Colors.grey.shade500,
             ),
           ),
           MaterialButton(
-            onPressed: () => widget.onBottomIconPressed!(1),
+            onPressed: () => mainController.changeTabIndex(1),
             shape: CircleBorder(
               side: BorderSide(
-                color: widget.selectedIndex! == 1
+                color: mainController.tabIndex.value == 1
                     ? AppColors.kSecondaryColor
                     : Colors.grey,
                 width: 8,
@@ -60,10 +60,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             ),
           ),
           IconButton(
-            onPressed: () => widget.onBottomIconPressed!(2),
+            onPressed: () => mainController.changeTabIndex(2),
             icon: Icon(
               Icons.settings,
-              color: widget.selectedIndex! == 2
+              color: mainController.tabIndex.value == 2
                   ? AppColors.kSecondaryColor
                   : Colors.grey.shade500,
             ),

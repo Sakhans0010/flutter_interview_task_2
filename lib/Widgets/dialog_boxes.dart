@@ -28,7 +28,10 @@ class DialogBoxes {
                   if (Get.isDialogOpen!) Get.back();
                   // Navigator.of(Get.context!).pop();
                 },
-                child: const Text('Okay'),
+                child: const Text(
+                  'Okay',
+                  style: TextStyle(),
+                ),
               ),
             ],
           ),

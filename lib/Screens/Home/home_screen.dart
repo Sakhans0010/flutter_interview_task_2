@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import '../../Config/size_config.dart';
 import '../../Constants/colors.dart';
 import '../../Controllers/home_controller.dart';
-import '../../Providers/home_data_provider.dart';
+
 import '../../Widgets/spacers.dart';
 import 'components/home_body.dart';
 
